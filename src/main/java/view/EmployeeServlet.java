@@ -1,13 +1,14 @@
 package view;
 
 import controller.EmployeeController;
+import model.Employee;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "EmployeeServlet", value = "/")
+@WebServlet(name = "EmployeeServlet", value = "")
 public class EmployeeServlet extends HttpServlet {
     EmployeeController controller=new EmployeeController();
     @Override
@@ -29,6 +30,13 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showAll(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            request.getRequestDispatcher("showAll.jsp").forward(request,response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {
@@ -51,6 +59,21 @@ public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String action=request.getParameter("action");
+        switch (action){
+            case "create":
+                create(request,response);
+        }
+    }
 
+    private void create(HttpServletRequest request, HttpServletResponse response) {
+        String name=request.getParameter("name");
+        String email=request.getParameter("email");
+        String address=request.getParameter("address");
+        long phoneNumber= Long.parseLong(request.getParameter("phone_number"));
+        long salary= Long.parseLong(request.getParameter("salary"));
+        String department=request.getParameter("department");
+        Employee employee=new Employee(name,email,address,phoneNumber,salary,department);
+        controller.create(employee);
     }
 }
