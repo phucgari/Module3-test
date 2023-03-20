@@ -23,8 +23,8 @@ public class EmployeeController implements JDBCCRUD {
             "address=?, " +
             "phone_number=?, " +
             "salary=?, " +
-            "department_id=? " +
-            "where employee_id=? ";
+            "department_id=(select department_id from department where depart_name=?) " +
+            "where id=? ";
     private final String CREATE_EMPLOYEE =
             "insert into employee (name,email,address,phone_number,salary,department_id) " +
             "values (?,?,?,?,?,(select department_id from department where depart_name=?))";

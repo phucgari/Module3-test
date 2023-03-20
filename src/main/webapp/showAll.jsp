@@ -64,7 +64,7 @@
     function deleletconfig(id){
         var del=confirm("Are you sure you want to delete this employee?");
         if (del==true){
-            window.location.href = '/?action=delete?id='+id;
+            window.location.href = '/?action=delete&id='+id;
         }
     }
 </script>

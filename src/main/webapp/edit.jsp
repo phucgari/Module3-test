@@ -40,31 +40,31 @@
             <input type="number" class="form-control" name="salary" value="${employee.getSalary()}">
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="department" id="sale" value="Sale">
+            <input class="form-check-input" type="radio" name="department" id="sale" value="Sale" <c:if test="${employee.getDepartment().equals('Sale')}">checked</c:if> >
             <label class="form-check-label" for="sale">
                 Sale
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="department" id="quality_control" value="Quality Control">
+            <input class="form-check-input" type="radio" name="department" id="quality_control" value="Quality Control" <c:if test="${employee.getDepartment().equals('Quality Control')}">checked</c:if>>
             <label class="form-check-label" for="quality_control">
                 Quality Control
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="department" id="human_resources" value="Human Resources">
+            <input class="form-check-input" type="radio" name="department" id="human_resources" value="Human Resources" <c:if test="${employee.getDepartment().equals('Human Resources')}"> checked</c:if>>
             <label class="form-check-label" for="human_resources">
                 Human Resources
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="department" id="finance" value="Finance">
+            <input class="form-check-input" type="radio" name="department" id="finance" value="Finance" <c:if test="${employee.getDepartment().equals('Finance')}"> checked</c:if>>
             <label class="form-check-label" for="finance">
                 Finance
             </label>
         </div>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="department" id="marketing" value="Marketing">
+            <input class="form-check-input" type="radio" name="department" id="marketing" value="Marketing" <c:if test="${employee.getDepartment().equals('Marketing')}"> checked</c:if>>
             <label class="form-check-label" for="marketing">
                 Marketing
             </label>

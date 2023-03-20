@@ -74,22 +74,41 @@ public class EmployeeServlet extends HttpServlet {
         switch (action){
             case "create":
                 create(request,response);
+                break;
+            case "update":
+                update(request,response);
+        }
+    }
+
+    private void update(HttpServletRequest request, HttpServletResponse response) {
+        Employee employee=getEmployeeBy6Parameter(request);
+        employee.setId(Integer.parseInt(request.getParameter("id")));
+        controller.update(employee);
+        try {
+            response.sendRedirect("/");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
     private void create(HttpServletRequest request, HttpServletResponse response) {
-        String name=request.getParameter("name");
-        String email=request.getParameter("email");
-        String address=request.getParameter("address");
-        long phoneNumber= Long.parseLong(request.getParameter("phone_number"));
-        long salary= Long.parseLong(request.getParameter("salary"));
-        String department=request.getParameter("department");
-        Employee employee=new Employee(name,email,address,phoneNumber,salary,department);
+        Employee employee = getEmployeeBy6Parameter(request);
         controller.create(employee);
         try {
-            response.sendRedirect("");
+            response.sendRedirect("/");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Employee getEmployeeBy6Parameter(HttpServletRequest request) {
+        String name= request.getParameter("name");
+        String email= request.getParameter("email");
+        String address= request.getParameter("address");
+        long phoneNumber= Long.parseLong(request.getParameter("phone_number"));
+        long salary= Long.parseLong(request.getParameter("salary"));
+        String department= request.getParameter("department");
+        Employee employee=new Employee(name,email,address,phoneNumber,salary,department);
+        return employee;
     }
 }
