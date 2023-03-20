@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "EmployeeServlet", value = "")
 public class EmployeeServlet extends HttpServlet {
@@ -30,6 +31,8 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showAll(HttpServletRequest request, HttpServletResponse response) {
+        ArrayList<Employee> employees=controller.getAll();
+        request.setAttribute("employees",employees);
         try {
             request.getRequestDispatcher("showAll.jsp").forward(request,response);
         } catch (ServletException e) {
@@ -40,11 +43,19 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) {
-
+        controller.delete(Integer.parseInt(request.getParameter("id")));
     }
 
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response) {
-
+        Employee employee=controller.getByIndex(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("employee",employee);
+        try {
+            request.getRequestDispatcher("edit.jsp").forward(request,response);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
@@ -75,5 +86,10 @@ public class EmployeeServlet extends HttpServlet {
         String department=request.getParameter("department");
         Employee employee=new Employee(name,email,address,phoneNumber,salary,department);
         controller.create(employee);
+        try {
+            response.sendRedirect("");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

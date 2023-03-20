@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class EmployeeController implements JDBCCRUD {
 
+    private final String GET_BY_INDEX = "select * " +
+            "from employee " +
+            "inner join department on department.department_id=employee.department_id " +
+            "where id=?";
     private final String DELETE_EMPLOYEE =
             "delete " +
             "from employee " +
@@ -35,17 +39,34 @@ public class EmployeeController implements JDBCCRUD {
             ResultSet resultSet=preparedStatement.executeQuery();
             ArrayList<Employee> employees=new ArrayList<>();
             while(resultSet.next()){
-                int id=resultSet.getInt("id");
-                String name=resultSet.getString("name");
-                String email=resultSet.getString("email");
-                String address=resultSet.getString("address");
-                long phoneNumber=resultSet.getLong("phone_number");
-                long salary=resultSet.getLong("salary");
-                String department=resultSet.getString("depart_name");
-                Employee employee=new Employee(id,name,email,address,phoneNumber,salary,department);
+                Employee employee = getEmployee(resultSet);
                 employees.add(employee);
             }
             return employees;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static Employee getEmployee(ResultSet resultSet) throws SQLException {
+        int id= resultSet.getInt("id");
+        String name= resultSet.getString("name");
+        String email= resultSet.getString("email");
+        String address= resultSet.getString("address");
+        long phoneNumber= resultSet.getLong("phone_number");
+        long salary= resultSet.getLong("salary");
+        String department= resultSet.getString("depart_name");
+        Employee employee=new Employee(id,name,email,address,phoneNumber,salary,department);
+        return employee;
+    }
+
+    @Override
+    public Employee getByIndex(int index) {
+        try(PreparedStatement preparedStatement=getConnection().prepareStatement(GET_BY_INDEX)){
+            preparedStatement.setInt(1,index);
+            ResultSet resultSet=preparedStatement.executeQuery();
+            resultSet.next();
+            return getEmployee(resultSet);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -8,9 +8,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface JDBCCRUD {
-    public static final String URL = "jdbc:mysql://localhost:3306/employee_depart";
-    public static final String USER = "root";
-    public static final String PASSWORD = "123456";
+    String URL = "jdbc:mysql://localhost:3306/employee_depart";
+    String USER = "root";
+    String PASSWORD = "123456";
 
     default Connection getConnection(){
         try {
@@ -25,6 +25,7 @@ public interface JDBCCRUD {
     }
 
     ArrayList<Employee> getAll();
+    Employee getByIndex(int index);
     void create(Employee employee);
     void update(Employee employee);
     void delete(int index);
