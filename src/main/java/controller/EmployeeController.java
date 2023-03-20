@@ -31,7 +31,7 @@ public class EmployeeController implements JDBCCRUD {
     public final String GET_ALL_EMPLOYEE =
             "select * " +
             "from employee " +
-            "inner join department on department.department_id=employee.department_id ";
+            "left join department on department.department_id=employee.department_id ";
 
     @Override
     public ArrayList<Employee> getAll(String search) {
