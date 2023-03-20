@@ -11,7 +11,7 @@ public class EmployeeController implements JDBCCRUD {
 
     private final String GET_BY_INDEX = "select * " +
             "from employee " +
-            "inner join department on department.department_id=employee.department_id " +
+            "left join department on department.department_id=employee.department_id " +
             "where id=?";
     private final String DELETE_EMPLOYEE =
             "delete " +
