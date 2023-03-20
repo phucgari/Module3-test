@@ -34,8 +34,11 @@ public class EmployeeController implements JDBCCRUD {
             "inner join department on department.department_id=employee.department_id ";
 
     @Override
-    public ArrayList<Employee> getAll() {
-        try(PreparedStatement preparedStatement=getConnection().prepareStatement(GET_ALL_EMPLOYEE)){
+    public ArrayList<Employee> getAll(String search) {
+        String str=search==null?"":
+                "where employee.name like '%"+search+"%'"
+                ;
+        try(PreparedStatement preparedStatement=getConnection().prepareStatement(GET_ALL_EMPLOYEE+str)){
             ResultSet resultSet=preparedStatement.executeQuery();
             ArrayList<Employee> employees=new ArrayList<>();
             while(resultSet.next()){

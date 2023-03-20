@@ -24,7 +24,7 @@ public interface JDBCCRUD {
         }
     }
 
-    ArrayList<Employee> getAll();
+    ArrayList<Employee> getAll(String search);
     Employee getByIndex(int index);
     void create(Employee employee);
     void update(Employee employee);

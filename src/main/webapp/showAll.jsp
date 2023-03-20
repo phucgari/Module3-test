@@ -15,10 +15,20 @@
 <body>
 <div class="container">
     <h3>Show All Employee</h3>
-    <form method="get">
-        <input type="hidden" name="action" value="create">
-        <button type="submit" class="btn btn-primary">Create</button>
-    </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form method="get">
+                <input type="hidden" name="action" value="create">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </form>
+        </div>
+        <div class="col-md-4 offset-md-4">
+            <form method="get">
+                <input type="text" name="action">
+                <button type="submit" class="btn btn-primary">Search By Name</button>
+            </form>
+        </div>
+    </div>
     <table class="table">
         <thead>
         <tr>

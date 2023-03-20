@@ -31,7 +31,7 @@ public class EmployeeServlet extends HttpServlet {
     }
 
     private void showAll(HttpServletRequest request, HttpServletResponse response) {
-        ArrayList<Employee> employees=controller.getAll();
+        ArrayList<Employee> employees=controller.getAll(request.getParameter("action"));
         request.setAttribute("employees",employees);
         try {
             request.getRequestDispatcher("showAll.jsp").forward(request,response);
@@ -105,8 +105,12 @@ public class EmployeeServlet extends HttpServlet {
         String name= request.getParameter("name");
         String email= request.getParameter("email");
         String address= request.getParameter("address");
-        long phoneNumber= Long.parseLong(request.getParameter("phone_number"));
-        long salary= Long.parseLong(request.getParameter("salary"));
+        String phoneNumberStr = request.getParameter("phone_number");
+        long phoneNumber= phoneNumberStr ==null||phoneNumberStr.equals("")?
+                0:Long.parseLong(phoneNumberStr);
+        String salaryStr = request.getParameter("salary");
+        long salary= salaryStr==null||salaryStr.equals("")?
+                0:Long.parseLong(salaryStr);
         String department= request.getParameter("department");
         Employee employee=new Employee(name,email,address,phoneNumber,salary,department);
         return employee;
