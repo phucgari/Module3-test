@@ -1,6 +1,7 @@
 package model;
 
 public class Employee {
+    private int id;
     private String name;
     private String email;
     private String address;
@@ -11,6 +12,16 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(int id, String name, String email, String address, long phoneNumber, long salary, String department) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.salary = salary;
+        this.department = department;
+    }
+
     public Employee(String name, String email, String address, long phoneNumber, long salary, String department) {
         this.name = name;
         this.email = email;
@@ -18,6 +29,14 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.salary = salary;
         this.department = department;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
